@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button onclick="sayHello()">Hi</button>
+    <br />
+    <input type="text" id="first_input" />
+    <button onclick="getValue()">value</button>
+    <br />
+    <button onclick="getRandom()">get Random</button>
+    <br />
+    <button onclick="getRandomBetween(1,100)">getRandomBetween</button>
+
+    <br />
+    <br />
+
+    <div>Generate Random from user's numbers</div>
+    <input type="text" id="min" />
+    <input type="text" id="max" />
+    <button onclick="generateRandom()">Generate Random</button>
+
+    <br />
+    <br />
+
+    <div>نوشتن در تگ</div>
+    <div id="resultGenerateRandom" style="background-color: aqua;"></div>
+    <button onclick="update()">update</button>
+
+    <br />
+    <br />
+
+    <div>Check Random Digit between me and computer</div>
+    <input type="number" id="myNumber" />
+    <button onclick="game()">game</button>
+    <div id="resultGame"></div>
+  </body>
+  <script>
+    const sayHello = () => {
+      console.log("Before");
+      alert("Hello");
+      console.log("After");
+    };
+
+    const getValue = () => {
+      const value = document.getElementById("first_input").value;
+      console.log(value); //رشته
+      console.log(+value); //عدد
+      console.log(parseInt(value)); //عدد
+    };
+
+    const getRandom = () => {
+      console.log(Math.floor(1.5));
+      console.log(Math.ceil(1.5));
+      console.log(Math.round(1.5));
+      const num = Math.random();
+      console.log(num);
+    };
+
+    const getRandomBetween = (min, max) => {
+      const num = Math.floor(Math.random() * max) + min;
+      return num;
+    };
+
+    const generateRandom = () => {
+      const min = document.getElementById("min").value;
+      const max = document.getElementById("max").value;
+      const randNum = Math.random();
+      const num = Math.floor(randNum * parseInt(max)) + parseInt(min);
+      return num;
+    };
+
+    const update = () => {
+      document.getElementById("resultGenerateRandom").innerText =
+        getRandomBetween(1, 100);
+    };
+
+    const game = () => {
+      const val = getRandomBetween(1, 3);
+      console.log("computer= " + val);
+      const myNumber = document.getElementById("myNumber").value;
+      console.log("me= " + myNumber);
+      const res = val === parseInt(myNumber) ? true : false;
+      console.log("result= " + res);
+      document.getElementById("resultGame").innerText = res;
+    };
+  </script>
+</html>
