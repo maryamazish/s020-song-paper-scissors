@@ -1,91 +1,121 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="rtl">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
   </head>
   <body>
-    <button onclick="sayHello()">Hi</button>
+    <button value="1" id="song" onclick="play('song')">سنگ</button>
+    <button value="2" id="paper" onclick="play('paper')">کاغذ</button>
+    <button value="3" id="scissors" onclick="play('scissors')">قیچی</button>
     <br />
-    <input type="text" id="first_input" />
-    <button onclick="getValue()">value</button>
+    <label>انتخاب کامپیوتر</label>
+    <div id="computerChoice"></div>
     <br />
-    <button onclick="getRandom()">get Random</button>
-    <br />
-    <button onclick="getRandomBetween(1,100)">getRandomBetween</button>
-
-    <br />
-    <br />
-
-    <div>Generate Random from user's numbers</div>
-    <input type="text" id="min" />
-    <input type="text" id="max" />
-    <button onclick="generateRandom()">Generate Random</button>
-
-    <br />
-    <br />
-
-    <div>نوشتن در تگ</div>
-    <div id="resultGenerateRandom" style="background-color: aqua;"></div>
-    <button onclick="update()">update</button>
-
-    <br />
-    <br />
-
-    <div>Check Random Digit between me and computer</div>
-    <input type="number" id="myNumber" />
-    <button onclick="game()">game</button>
-    <div id="resultGame"></div>
+    <label>تعداد دفعات برنده شدن یوزر</label>
+    <div id="winUserCounter"></div>
+    <label>تعداد دفعات برنده شدن کامپیوتر</label>
+    <div id="winComputerCounter"></div>
+    <label>برنده نهایی : </label>
+    <div id="winner"></div>
   </body>
   <script>
-    const sayHello = () => {
-      console.log("Before");
-      alert("Hello");
-      console.log("After");
+    let counter = 0;
+    let winUserCounter = 0;
+    let winComputerCounter = 0;
+
+    const gameOptions = {
+      song: 1,
+      paper: 2,
+      scissors: 3,
     };
 
-    const getValue = () => {
-      const value = document.getElementById("first_input").value;
-      console.log(value); //رشته
-      console.log(+value); //عدد
-      console.log(parseInt(value)); //عدد
+    const play = (input) => {
+      if (checkCounter()) {
+        const computerchoice = getRandomBetween();
+        document.getElementById("computerChoice").innerText =
+          getComputerChoice(computerchoice);
+        if (gameOptions[input] === computerchoice) {
+          alert("انتخاب ها مشابه بود لطفا دوباره تلاش کنید");
+        } else {
+          if (gameOptions[input] === gameOptions.song) {
+            // if (computerchoice === gameOptions.paper) {
+            //   ++winComputerCounter;
+            // } else if (computerchoice === gameOptions.scissors) {
+            //   ++winUserCounter;
+            // }
+            computerchoice === gameOptions.paper
+              ? ++winComputerCounter
+              : ++winUserCounter;
+          } else if (gameOptions[input] === gameOptions.paper) {
+            // if (computerchoice === gameOptions.scissors) {
+            //   ++winComputerCounter;
+            // } else if (computerchoice === gameOptions.song) {
+            //   ++winUserCounter;
+            // }
+            computerchoice === gameOptions.scissors
+              ? ++winComputerCounter
+              : ++winUserCounter;
+          } else {
+            // if (computerchoice === gameOptions.song) {
+            //   ++winComputerCounter;
+            // } else if (computerchoice === gameOptions.paper) {
+            //   ++winUserCounter;
+            // }
+            computerchoice === gameOptions.song
+              ? ++winComputerCounter
+              : ++winUserCounter;
+          }
+          console.log("winComputerCounter = " + winComputerCounter);
+          console.log("winUserCounter = " + winUserCounter);
+        }
+        //یه انیمیشن بذارم و برنده رو توش اعلام کنم
+        showResult();
+      } else {
+        let winner = null;
+        if (winUserCounter === winComputerCounter) winner = "مساوی";
+        else winner = winUserCounter > winComputerCounter ? "یوزر" : "کامپیوتر";
+        alert(
+          "تعداد دفعات  مجاز برای بازی به اتمام رسیده است. برنده نهایی: "+ winner +"  لطفا دوباه بازی کنید"
+        );
+        reset();
+      }
     };
 
-    const getRandom = () => {
-      console.log(Math.floor(1.5));
-      console.log(Math.ceil(1.5));
-      console.log(Math.round(1.5));
-      const num = Math.random();
-      console.log(num);
-    };
-
-    const getRandomBetween = (min, max) => {
-      const num = Math.floor(Math.random() * max) + min;
+    const getRandomBetween = () => {
+      const num = Math.floor(Math.random() * 3) + 1;
       return num;
     };
 
-    const generateRandom = () => {
-      const min = document.getElementById("min").value;
-      const max = document.getElementById("max").value;
-      const randNum = Math.random();
-      const num = Math.floor(randNum * parseInt(max)) + parseInt(min);
-      return num;
+    const getComputerChoice = (value) => {
+      return Object.keys(gameOptions).find((key) => gameOptions[key] === value);
     };
 
-    const update = () => {
-      document.getElementById("resultGenerateRandom").innerText =
-        getRandomBetween(1, 100);
+    const checkCounter = () => {
+      ++counter;
+      return counter < 6 ? true : false;
     };
 
-    const game = () => {
-      const val = getRandomBetween(1, 3);
-      console.log("computer= " + val);
-      const myNumber = document.getElementById("myNumber").value;
-      console.log("me= " + myNumber);
-      const res = val === parseInt(myNumber) ? true : false;
-      console.log("result= " + res);
-      document.getElementById("resultGame").innerText = res;
+    const showResult = () => {
+      document.getElementById("winUserCounter").innerText = winUserCounter;
+      document.getElementById("winComputerCounter").innerText =
+        winComputerCounter;
+      if (winUserCounter === winComputerCounter)
+        document.getElementById("winner").innerText = "مساوی";
+      else
+        document.getElementById("winner").innerText =
+          winUserCounter > winComputerCounter ? "یوزر" : "کامپیوتر";
+    };
+
+    const reset = () => {
+      counter = 0;
+      winUserCounter = 0;
+      winComputerCounter = 0;
+      document.getElementById("computerChoice").innerText = "";
+      document.getElementById("winUserCounter").innerText = "";
+      document.getElementById("winComputerCounter").innerText = "";
+      document.getElementById("winner").innerText = "";
     };
   </script>
 </html>
