@@ -1,0 +1,61 @@
+:root {
+  --bg-color: rgb(192, 177, 177)
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-color);
+  font-family: Vazirmatn;
+}
+
+.img {
+  display: block;
+}
+
+.container {
+  width: 700px;
+  margin-right: auto;
+  margin-left: auto;
+  border: solid black 2px;
+
+}
+
+.btn-wrapper {
+  margin-top: 100px;
+  margin-left: 27%;
+  margin-right: 27%;
+}
+
+button {
+  border-radius: 15%;
+  background-color: bisque;
+  border: solid black 2px;
+  width: 100px;
+  height: 100px;
+  font-weight: 500;
+  font-size: 20px;
+  display: inline-block;
+}
+
+#computerChoice,
+#winUserCounter,
+#winComputerCounter,
+#winner {
+  display: inline-block;
+  font-weight: 500;
+  font-size: 20px;
+  /* margin-bottom: 30px; */
+}
+
+label {
+  display: inline-block;
+  margin-top: 20px;
+  font-weight: 500;
+  font-size: 20px;
+}
+
