@@ -1,5 +1,5 @@
 :root {
-  --bg-color: rgb(192, 177, 177)
+  --bg-color: rgb(110, 105, 105);
 }
 
 * {
@@ -22,13 +22,22 @@ body {
   margin-right: auto;
   margin-left: auto;
   border: solid black 2px;
+}
 
+.logo {
+  margin-top: 25px;
+  text-align: center;
+}
+
+.images {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 10px;
 }
 
 .btn-wrapper {
-  margin-top: 100px;
-  margin-left: 27%;
-  margin-right: 27%;
+  margin-top: 2px;
 }
 
 button {
@@ -49,6 +58,8 @@ button {
   display: inline-block;
   font-weight: 500;
   font-size: 20px;
+  color: antiquewhite;
+
   /* margin-bottom: 30px; */
 }
 
@@ -57,5 +68,18 @@ label {
   margin-top: 20px;
   font-weight: 500;
   font-size: 20px;
+  color: antiquewhite;
 }
 
+.answer-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top: solid black 2px;
+}
+
+#stone,
+#paper,
+#scissors {
+  cursor: pointer;
+}
